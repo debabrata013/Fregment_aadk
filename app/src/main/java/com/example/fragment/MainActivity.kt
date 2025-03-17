@@ -1,6 +1,8 @@
 package com.example.fragment
 
+import android.app.Fragment
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,10 +13,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val btn_home:Button= findViewById(R.id.btn_home)
+        val btn_profile:Button= findViewById(R.id.btn_profile)
+        val btn_registration:Button= findViewById(R.id.btn_registration)
+        btn_home.setOnClickListener {
+            replaeFragment(HomeFragment())
         }
+        btn_profile.setOnClickListener {
+            replaeFragment(ProfileFragment())
+            }
+        btn_registration.setOnClickListener {
+            replaeFragment(RegFragment())
+        }
+
+
+    }
+    private fun replaeFragment(frag:androidx.fragment.app.Fragment) {
+       val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainerView, frag)
+
+        transaction.commit()
+
+
+
     }
 }
